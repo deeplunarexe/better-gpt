@@ -42,6 +42,8 @@
 - **File Upload:** Click the small `⚡` button next to the `+` button in the chat input to pick any file.
 - **Prompt:** Type your question as usual (e.g. *"What does this code do?"* or *"What is shown in this picture?"*) and press Enter.
 
+
+### We shouldn't have to pay for basic features.
 ---
 
 ## Русский
@@ -75,6 +77,9 @@
    - Настройте текст промпт-инжекта, подтверждение и режим отображения.
 7. Откройте или обновите вкладку [chatgpt.com](https://chatgpt.com).
 
+
+
+### Мы не должны платить за базовые функции.
 ### Использование
 
 - **Код и документы:** Перетащите мышью или выберите файл (`.py`, `.txt`, `.json` и т.д.) — встроенный JS моментально считает его без расхода API.
