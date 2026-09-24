@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BetterGPT</title>
+  <style>
+    :root {
+      --bg: #18181b;
+      --card-bg: #27272a;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --accent: #f97316;
+      --accent-hover: #ea580c;
+      --border: #3f3f46;
+      --danger: #ef4444;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      width: 330px;
+      background-color: var(--bg);
+      color: var(--text);
+      box-sizing: border-box;
+    }
+
+    h2 {
+      margin: 0 0 14px 0;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+      color: var(--text-muted);
+    }
+
+    input[type="password"],
+    input[type="text"],
+    select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 7px 9px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+    }
+
+    .hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      line-height: 1.3;
+    }
+
+    .provider-toggle {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .provider-btn {
+      flex: 1;
+      padding: 7px 4px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .provider-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    button#saveBtn {
+      width: 100%;
+      padding: 9px;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background-color 0.2s;
+    }
+
+    button#saveBtn:hover {
+      background-color: var(--accent-hover);
+    }
+
+    #status {
+      margin-top: 8px;
+      font-size: 12px;
+      text-align: center;
+      min-height: 16px;
+    }
+
+    .success { color: #34d399; }
+    .error { color: var(--danger); }
+  </style>
+</head>
+<body>
+  <h2>⚡ BetterGPT</h2>
+
+  <label>Провайдер распознавания:</label>
+  <div class="provider-toggle">
+    <div id="btn-groq" class="provider-btn active">Groq (Qwen 3.8)</div>
+    <div id="btn-gemini" class="provider-btn">Google Gemini</div>
+  </div>
+
+  <div id="groq-section">
+    <div class="form-group">
+      <label for="groqApiKey">Groq API Key:</label>
+      <input type="password" id="groqApiKey" placeholder="gsk_...">
+      <div class="hint">Сверхбыстрый LPU инференс на серверах Groq.</div>
+    </div>
+    <div class="form-group">
+      <label for="groqModel">Модель Groq:</label>
+      <select id="groqModel">
+        <option value="qwen/qwen3.8-27b" selected>qwen/qwen3.8-27b (Нативная мультимодальная)</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="gemini-section" style="display: none;">
+    <div class="form-group">
+      <label for="geminiApiKey">Gemini API Key:</label>
+      <input type="password" id="geminiApiKey" placeholder="AIzaSy...">
+    </div>
+    <div class="form-group">
+      <label for="geminiModel">Модель Gemini:</label>
+      <select id="geminiModel">
+        <option value="gemini-3.5-flash-lite" selected>gemini-3.5-flash-lite</option>
+        <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="displayMode">Отображение в чате ChatGPT:</label>
+    <select id="displayMode">
+      <option value="spoiler" selected>Сворачиваемый спойлер</option>
+      <option value="hidden">Полностью скрыть (только вопрос)</option>
+    </select>
+  </div>
+
+  <div class="form-group" style="margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px;">
+    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; text-transform: none; font-size: 12px; color: var(--text);">
+      <input type="checkbox" id="interceptPaste" checked>
+      <span>Вставка скриншотов через <b>Ctrl+V</b></span>
+    </label>
+  </div>
+
+  <div class="form-group" id="confirmSection" style="margin-top: 6px;">
+    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; text-transform: none; font-size: 12px; color: var(--text);">
+      <input type="checkbox" id="confirmBeforeUpload">
+      <span>Спрашивать подтверждение перед обработкой</span>
+    </label>
+  </div>
+
+  <div class="form-group" style="margin-top: 8px;">
+    <label for="customPromptInject">Промпт-инжект (Инструкция к файлу):</label>
+    <input type="text" id="customPromptInject" placeholder="Используй содержимое файла выше для ответа...">
+    <div class="hint">Автоматически внедряется вместе с кодом или описанием файла.</div>
+  </div>
+
+  <button id="saveBtn">Сохранить</button>
+  <div id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

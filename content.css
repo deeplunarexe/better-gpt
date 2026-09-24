@@ -1,0 +1,219 @@
+#gemini-file-chip,
+#gemini-bridge-container,
+#gemini-bridge-btn,
+#vl-attachment-preview-container,
+.vl-chip,
+.gemini-file-chip {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+}
+
+#vl-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 9999px;
+  background-color: transparent;
+  color: #a1a1aa;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 2px;
+  position: relative;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+#vl-upload-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f97316;
+}
+
+#vl-upload-btn.loading {
+  color: #f97316;
+  animation: vl-pulse 1s infinite ease-in-out;
+  cursor: wait;
+}
+
+#vl-upload-btn.attached::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10a37f;
+  box-shadow: 0 0 4px #10a37f;
+}
+
+@keyframes vl-pulse {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+#vl-floating-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999999;
+  background: #18181b;
+  border: 1px solid #3f3f46;
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: #f4f4f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: vl-toast-in 0.2s ease-out;
+}
+
+@keyframes vl-toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#vl-floating-toast.loading {
+  border-left: 3px solid #f97316;
+}
+
+#vl-floating-toast.ready {
+  border-left: 3px solid #10a37f;
+}
+
+#vl-toast-close {
+  background: none;
+  border: none;
+  color: #71717a;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+#vl-toast-close:hover {
+  color: #ef4444;
+}
+
+#vl-confirm-bubble {
+  position: absolute;
+  z-index: 99999;
+  background: #18181b;
+  border: 1px solid #3f3f46;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  padding: 10px 14px;
+  color: #f4f4f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.vl-confirm-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vl-confirm-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f97316;
+}
+
+.vl-confirm-sub {
+  font-size: 11px;
+  color: #a1a1aa;
+}
+
+.vl-confirm-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.vl-btn-primary {
+  padding: 4px 10px;
+  background-color: #f97316;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vl-btn-primary:hover {
+  background-color: #ea580c;
+}
+
+.vl-btn-secondary {
+  padding: 4px 10px;
+  background-color: #27272a;
+  border: 1px solid #3f3f46;
+  color: #a1a1aa;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.vl-btn-secondary:hover {
+  background-color: #3f3f46;
+  color: #fff;
+}
+
+.vl-injected-badge {
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 2px 7px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  font-size: 12px;
+  color: #94a3b8;
+  border-left: 2px solid #f97316;
+}
+
+.vl-collapsed-block {
+  margin: 6px 0;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.vl-collapsed-block summary {
+  padding: 6px 10px;
+  cursor: pointer;
+  color: #f97316;
+  background: rgba(255, 255, 255, 0.03);
+  font-weight: 500;
+  user-select: none;
+}
+
+.vl-collapsed-content {
+  padding: 8px 10px;
+  max-height: 220px;
+  overflow-y: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+.vl-collapsed-content pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: monospace;
+  font-size: 11px;
+}
